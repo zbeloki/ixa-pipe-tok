@@ -155,9 +155,13 @@ public class RuleBasedTokenizerServer {
    *           if io error
    */
   private void sendDataToClient(final BufferedWriter outToClient,
-      final String kafToString) throws IOException {
-    outToClient.write(kafToString);
-    outToClient.close();
+      final String kafToString) {
+      try {
+	  outToClient.write(kafToString);
+	  outToClient.close();
+      } catch (IOException e) {
+	  System.err.println("-> Could not connect to the client.");
+      }
   }
 
   /**
